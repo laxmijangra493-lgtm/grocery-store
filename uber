@@ -37,7 +37,7 @@ if(person == 1):
             time.sleep(delay[i])
         else:
             time.sleep(0.8)
-print("-------------------------------")
+print("----------------.......---------")
 
 if(person > 1):
     driver = [
