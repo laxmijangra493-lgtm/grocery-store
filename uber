@@ -1,0 +1,75 @@
+import sys
+import time
+name = input("enter you name : ")
+print("\nHi ,", name , "Welcome to US-UBER🛺\n")
+print("\nAre you looking for ride👀 just ask us we give the best fare for your trip👌\n")
+location = input("Please confirm your pickup spot: ")
+destination = input("Where to go? ✈ : \n")
+km = int(input("enetr the distance: \n"))
+person = int(input("how much people are gonig: \n"))
+if(km<10):
+    print("you will be right at your destination within 10 mins✔\n")
+if(km<20):
+    print("you will be right at your destination within 30 mins✔\n")
+else:
+    print("you will be right at your destination within 60 mins✔\n")
+print("Please keep patience uring ride thats all about traffic😊\n" , "ENJOY🎉\n")
+
+if(person == 1):
+    driver = [
+    "We are locating driver for you........\n"
+    "name - MUKESH\n"
+    "vchicle - BIKE\n"
+    "bike number - RJ14JK2010\n"
+    "He will ariving at your" ,location, "within 5 mins"
+]
+    
+    delay = [0.3 , 0.3 , 0.3 , 0.8 , 0.8]
+    time.sleep(1.2)
+
+    for i , line in enumerate(driver):
+        for char in line:
+            sys.stdout.write(char)
+            sys.stdout.flush()
+            time.sleep(0.06)
+        print()
+        if i < len(delay):
+            time.sleep(delay[i])
+        else:
+            time.sleep(0.8)
+print("-------------------------------")
+
+if(person > 1):
+    driver = [
+    "We are locating driver for you........\n"
+    "name - VIKRAM\n"
+    "vchicle - TEMPO\n"
+    "bike number - RJ14JK2011\n"
+    "He will ariving at your" , location , "within 5 mins\n"
+]
+    delay = [0.3 , 0.3 , 0.3 , 0.8 , 0.8]
+    time.sleep(1.2)
+
+    for i , line in enumerate(driver):
+        for char in line:
+            sys.stdout.write(char)
+            sys.stdout.flush()
+            time.sleep(0.06)
+        print()
+        if i < len(delay):
+            time.sleep(delay[i])
+        else:
+            time.sleep(0.8)
+print("-------------------------------")
+    
+fixed_fare =  30
+per_km = 15*km
+total = (fixed_fare + per_km)
+GSTIN = total * 18/100
+add = input("if you wanted to make your ride fast and save your more time , you can check our other plans\n if you wanted then entetr 'yes'  otherwise 'no' for continue: ")
+if(add == 'yes'):
+    rapid_fare = 10*km
+    print(fixed_fare + per_km + rapid_fare + GSTIN)
+else:
+    print("please pay after your destination to driver🛺" , "₹" ,fixed_fare + per_km + GSTIN)
+print("ENJOY your ride😊")
