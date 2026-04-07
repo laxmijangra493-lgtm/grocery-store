@@ -25,7 +25,6 @@ sweet_snack =[
     "2. Candy / Toffees =  ₹ 200 , full satck" ,
     "3. Energy Bars =  ₹ 45"
     ]
-sweet_snack_price =  [45 , 30 , 200 , 45]
 for I in sweet_snack:
     print(I)
 
@@ -75,26 +74,42 @@ def add_item():
     print(name , "✅ Item added to cart!")
 
 # Function to view cart
-def view_cart():
-
+ def view_cart():
     cursor.execute("SELECT * FROM cart")
     items = cursor.fetchall()
     
     if not items:
         print("🛒 Cart is empty!")
         return
+
     print("\n🧾 Your Cart:")
+
+    total = 0  
+
     for item in items:
         print(f"ID: {item[0]} | {item[1]} - ₹{item[2]}")
+        total += item[2]   
+
+    print("----------------------")
+    print("Total amount = ₹", total)   
+
     pay = input("enter 'pay' to pay your bill & '2' for continue: ")
+
     if pay == "pay":
-            total =0 
-            for item in items:
-                total += item[2]
-            print("please pay ₹" ,total)
-            cursor.execute("DELETE FROM cart")
-            conn.commit()
-            sys.exit
+        if total <= 500:
+            discount = total * 0.05
+            print("Enjoy your 5% 'discount' 🎉")
+        else:
+            discount = total * 0.15
+            print("Enjoy your 15% 'discount' 🎉")
+
+        final_amount = total - discount
+        print("Please pay ₹", final_amount)
+
+        cursor.execute("DELETE FROM cart")
+        conn.commit()
+        sys.exit()
+
 
     
 # Function to remove item
