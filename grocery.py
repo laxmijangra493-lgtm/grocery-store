@@ -8,14 +8,12 @@ cursor = conn.cursor()
 print("\nhi  there 😊 , just you need a break \n , heres the break looks like👀\n welcome to OURCART🔥\n")
 print("MENU 🍽")
 print("🍟 Packaged Snacks ➡")
-snack ={
-"chips" : 20,
-"nachos" : 32, 
-"Kurkure" : 30,
-" Namkeen Mix" : 50, 
-" Popcorn"  : 45,
-"Biscuits" : 35 
-}
+snack =["0. Potato Chips = ₹ 20" ,
+ "1. Nachos =  ₹ 32" ,
+ "2. Kurkure =  ₹ 30 " ,
+ "3. Namkeen Mix =  ₹ 56" ,
+ "4. Popcorn = ₹ 60",
+ "5. Biscuits = ₹ 30 \n"]
 for i in snack:
     print(i)
 print(".................\n")
@@ -78,6 +76,7 @@ def add_item():
 
 # Function to view cart
 def view_cart():
+
     cursor.execute("SELECT * FROM cart")
     items = cursor.fetchall()
     
@@ -88,17 +87,15 @@ def view_cart():
     for item in items:
         print(f"ID: {item[0]} | {item[1]} - ₹{item[2]}")
     pay = input("enter 'pay' to pay your bill & '2' for continue: ")
+    total = 0
     if pay == "pay":
-            total = 0
-            print(f"ID: {item[0]} | {item[1]} - ₹{item[2]}")
-            total += item[2]
+            total =0 
+            for item in items:
+                total += item[2]
             print("please pay ₹" ,total)
-            sys.exit()
-            def Remove_item():
-                view_cart()
-                cursor.execute("DELETE FROM cart" , (item))
-                conn.commit()
-                sys.exit()
+            cursor.execute("DELETE FROM cart")
+            conn.commit()
+            sys.exit
 
     
 # Function to remove item
