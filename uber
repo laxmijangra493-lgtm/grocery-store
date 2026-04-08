@@ -1,15 +1,20 @@
 import sys
 import time
+from datetime import datetime, UTC
+import requests
+
+
+
 name = input("enter you name : ")
 print("\nHi ,", name , "Welcome to US-UBER🛺\n")
 print("\nAre you looking for ride👀 just ask us we give the best fare for your trip👌\n")
 location = input("Please confirm your pickup spot: ")
 destination = input("Where to go? ✈ : \n")
-km = int(input("enetr the distance: \n"))
+km = float(input("enter the distance: \n"))
 person = int(input("how much people are gonig: \n"))
 if(km<10):
     print("you will be right at your destination within 10 mins✔\n")
-if(km<20):
+elif(10<km<20):
     print("you will be right at your destination within 30 mins✔\n")
 else:
     print("you will be right at your destination within 60 mins✔\n")
@@ -37,39 +42,62 @@ if(person == 1):
             time.sleep(delay[i])
         else:
             time.sleep(0.8)
-print("-----------------------------")
+print("-------------------------------")
 
-if(person > 1):
-    driver = [
+if(1<person >= 4):
+    Driver = [
     "We are locating driver for you........\n"
     "name - VIKRAM\n"
     "vchicle - TEMPO\n"
-    "bike number - RJ14JK2011\n"
+    "tempo number - RJ14JK2011\n"
     "He will ariving at your" , location , "within 5 mins\n"
 ]
-    delay = [0.3 , 0.3 , 0.3 , 0.8 , 0.8]
+    Delay = [0.3 , 0.3 , 0.3 , 0.8 , 0.8]
     time.sleep(1.2)
-
-    for i , line in enumerate(driver):
+    for i , line in enumerate(Driver):
         for char in line:
             sys.stdout.write(char)
             sys.stdout.flush()
             time.sleep(0.06)
         print()
-        if i < len(delay):
-            time.sleep(delay[i])
+        if i < len(Delay):
+            time.sleep(Delay[i])
         else:
             time.sleep(0.8)
 print("-------------------------------")
-    
+if(4<person<6):
+    driveR = [
+    "We are locating driver for you........\n"
+    "name - NAMAN KUMAR\n"
+    "vchicle - CAR\n"
+    "car number - RJ14GK2056\n"
+    "He will ariving at your" , location , "within 5 mins\n"
+    ]
+    delaY = [0.3 , 0.3 , 0.3 , 0.8 , 0.8]
+    time.sleep(1.2)
+
+    for i , line in enumerate(driveR):
+        for char in line:
+            sys.stdout.write(char)
+            sys.stdout.flush()
+            time.sleep(0.06)
+        print()
+        if i < len(delaY):
+            time.sleep(delaY[i])
+        else:
+            time.sleep(0.8)
+print("-------------------------------")
 fixed_fare =  30
 per_km = 15*km
 total = (fixed_fare + per_km)
 GSTIN = total * 18/100
-add = input("if you wanted to make your ride fast and save your more time , you can check our other plans\n if you wanted then entetr 'yes'  otherwise 'no' for continue: ")
-if(add == 'yes'):
-    rapid_fare = 10*km
-    print(fixed_fare + per_km + rapid_fare + GSTIN)
-else:
+url = "https://api.sunrise-sunset.org/json?lat=26.9&lng=75.8&formatted=0"
+data = requests.get(url).json()
+sunrise = datetime.fromisoformat(data['results']['sunrise'])
+sunset = datetime.fromisoformat(data['results']['sunset'])
+now = datetime.now(UTC)
+if sunrise <= now <= sunset:
     print("please pay after your destination to driver🛺" , "₹" ,fixed_fare + per_km + GSTIN)
+else:
+    print("please pay after your destination to driver🛺" , "₹" ,fixed_fare + per_km + GSTIN + 250)
 print("ENJOY your ride😊")
